@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <style>
         /* --- ESTILOS BASE --- */
         * { box-sizing: border-box; }
@@ -20,7 +19,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden; /* Evita el scroll para una experiencia de app/presentación */
+            overflow: hidden; 
         }
 
         /* --- CONTENEDOR PRINCIPAL (Slider) --- */
@@ -55,7 +54,6 @@
             flex-direction: column;
             font-family: 'Inter', sans-serif;
             color: #cbd5e1;
-            /* Estado oculto inicial */
             opacity: 0;
             visibility: hidden;
             transform: scale(0.95);
@@ -63,7 +61,6 @@
             z-index: 1;
         }
 
-        /* Estado activo */
         .slide.active {
             opacity: 1;
             visibility: visible;
@@ -71,7 +68,7 @@
             z-index: 2;
         }
 
-        .slide-content { position: relative; z-index: 1; flex-grow: 1; display: flex; flex-direction: column; }
+        .slide-content { position: relative; z-index: 1; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
 
         /* --- TIPOGRAFÍA --- */
         h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; margin: 0; color: #f8fafc; }
@@ -86,24 +83,29 @@
 
         /* --- LAYOUTS --- */
         .layout-center { justify-content: center; align-items: center; text-align: center; }
-        .layout-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; flex-grow: 1; align-items: center; }
+        .layout-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         
         /* Enlaces de la Portada */
         .contact-links { display: flex; gap: 25px; justify-content: center; margin-top: 20px; }
         .contact-links a { color: #94a3b8; text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 8px; transition: color 0.3s; }
         .contact-links a:hover { color: #38bdf8; }
 
-        /* Imagen Portada Myosotis (Enlace altamente fiable de Wikimedia) */
+        /* Imagen Portada Myosotis (Más Grande) */
         .cover-image { 
-            width: 180px; 
-            height: 180px; 
+            width: 240px; 
+            height: 240px; 
             border-radius: 50%; 
             object-fit: cover; 
-            border: 4px solid #10b981; 
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); 
+            border: 5px solid #10b981; 
+            box-shadow: 0 10px 35px rgba(16, 185, 129, 0.4); 
             margin-bottom: 25px; 
             background: #fff;
         }
+
+        /* Cajas de Info (Cards) */
+        .info-card { background: #1e293b; padding: 40px; border-radius: 16px; border: 1px solid #334155; }
+        .info-card.blue { border-top: 6px solid #0ea5e9; }
+        .info-card.green { border-top: 6px solid #10b981; }
 
         /* Diagrama de Arquitectura */
         .arch-diagram { display: flex; justify-content: space-between; align-items: center; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 16px; border: 1px solid #334155; margin-top: 20px;}
@@ -153,7 +155,7 @@
 
         .slide-indicator { position: absolute; bottom: 40px; left: 40px; font-size: 16px; color: #64748b; font-family: 'Poppins', sans-serif; font-weight: 600;}
 
-        /* Ajustes Pantalla Completa (Tecla F) */
+        /* Ajustes Pantalla Completa */
         :fullscreen #slider-container {
             width: 100vw;
             height: 100vh;
@@ -168,7 +170,10 @@
         
         <div class="slide active">
             <div class="slide-content layout-center">
-<img src="myo.jpg" class="cover-image">                <p style="font-size: 26px; margin-top: 10px; color: #94a3b8;">Proyecto No me olvides</p>
+                <img src="myo.jpg" alt="Flor No Me Olvides" class="cover-image">
+                
+                <h1>Proyecto ASIR:<br><span>No Me Olvides</span></h1>
+                <p style="font-size: 26px; margin-top: 10px; color: #94a3b8;">Infraestructura Cloud Segura y Gestión de Backups</p>
                 
                 <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid #334155; width: 850px;">
                     <p style="font-size: 24px; font-weight: 600; color: #f8fafc; margin-bottom: 5px;">Samuel Pérez Tavío</p>
@@ -181,7 +186,24 @@
                     </div>
                 </div>
             </div>
-            <div class="slide-indicator">01 / 06</div>
+            <div class="slide-indicator">01 / 08</div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2 class="title">Quiénes Somos y El Proyecto</h2>
+                <div class="layout-2col">
+                    <div class="info-card blue">
+                        <h3 style="color: #f8fafc; margin-bottom: 20px;"><i class="fa-solid fa-users" style="color: #0ea5e9; margin-right: 10px;"></i> Never Forget SL</h3>
+                        <p>Somos un equipo independiente de administradores de sistemas (ASIR) dedicados a crear <strong>soluciones de almacenamiento seguras e intuitivas</strong>.</p>
+                    </div>
+                    <div class="info-card green">
+                        <h3 style="color: #f8fafc; margin-bottom: 20px;"><i class="fa-solid fa-cloud" style="color: #10b981; margin-right: 10px;"></i> "No Me Olvides"</h3>
+                        <p>Un servicio web desarrollado para mantener tus datos accesibles <strong>24/7</strong> y securizados al mejor precio mediante un entorno Cloud centralizado.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-indicator">02 / 08</div>
         </div>
 
         <div class="slide">
@@ -189,26 +211,50 @@
                 <h2 class="title">El Problema: Fragilidad y Exposición</h2>
                 <div class="layout-2col">
                     <div>
-                        <h3 style="color: #ef4444;"><i class="fa-solid fa-bug"></i> Escenario Actual (Pymes)</h3>
-                        <p>Las infraestructuras locales (On-Premise) de las pequeñas empresas presentan vulnerabilidades críticas:</p>
-                        <ul style="margin-top: 20px; gap: 10px; display: flex; flex-direction: column;">
+                        <h3 style="color: #ef4444; margin-bottom: 15px;"><i class="fa-solid fa-bug"></i> Escenario Actual (Pymes)</h3>
+                        <p>Las infraestructuras locales presentan vulnerabilidades críticas:</p>
+                        <ul style="margin-top: 15px; gap: 15px; display: flex; flex-direction: column;">
                             <li><strong>SPOF (Single Point of Failure):</strong> Un fallo de disco destruye años de operativa.</li>
-                            <li><strong>Ransomware:</strong> Aumento del 26% de secuestro de datos por exposición de redes locales.</li>
-                            <li><strong>Shadow IT:</strong> Los usuarios usan USBs inseguros ante la falta de herramientas corporativas.</li>
+                            <li><strong>Ransomware:</strong> Aumento del 26% de secuestros de datos por exposición de redes.</li>
+                            <li><strong>Shadow IT:</strong> Uso de USBs inseguros por falta de herramientas corporativas.</li>
                         </ul>
                     </div>
                     <div style="background: rgba(16, 185, 129, 0.05); padding: 40px; border-radius: 16px; border: 1px solid rgba(16, 185, 129, 0.3);">
-                        <h3 style="color: #10b981;"><i class="fa-solid fa-shield-halved"></i> La Solución Arquitectónica</h3>
+                        <h3 style="color: #10b981; margin-bottom: 15px;"><i class="fa-solid fa-shield-halved"></i> La Solución Arquitectónica</h3>
                         <p>Despliegue de un entorno <strong>Cloud externalizado</strong> centrado en tres pilares:</p>
-                        <ul style="margin-top: 20px;">
+                        <ul style="margin-top: 15px; gap: 10px; display: flex; flex-direction: column;">
                             <li><strong>Alta Disponibilidad:</strong> Infraestructura AWS EC2.</li>
-                            <li><strong>Confidencialidad:</strong> Tráfico cifrado (SSL) y credenciales hasheadas (Bcrypt).</li>
-                            <li><strong>Integridad:</strong> Panel CRUD web aislado por sesiones lógicas de PHP.</li>
+                            <li><strong>Confidencialidad:</strong> Tráfico cifrado (SSL) y contraseñas (Bcrypt).</li>
+                            <li><strong>Integridad:</strong> Panel CRUD aislado lógicamente en PHP.</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="slide-indicator">02 / 06</div>
+            <div class="slide-indicator">03 / 08</div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2 class="title">Necesidades Técnicas y Herramientas</h2>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 30px;">
+                    <div class="info-card" style="text-align: center;">
+                        <i class="fa-brands fa-aws" style="font-size: 60px; color: #f59e0b; margin-bottom: 20px;"></i>
+                        <h4 style="font-size: 22px; margin-bottom: 10px;">AWS EC2</h4>
+                        <p style="font-size: 16px;">Infraestructura escalable en la nube con asignación de IP Elástica.</p>
+                    </div>
+                    <div class="info-card" style="text-align: center;">
+                        <i class="fa-solid fa-server" style="font-size: 60px; color: #8b5cf6; margin-bottom: 20px;"></i>
+                        <h4 style="font-size: 22px; margin-bottom: 10px;">Apache2 & PHP</h4>
+                        <p style="font-size: 16px;">Motor web estable integrado con PHP para la lógica CRUD y Json.</p>
+                    </div>
+                    <div class="info-card" style="text-align: center;">
+                        <i class="fa-solid fa-lock" style="font-size: 60px; color: #10b981; margin-bottom: 20px;"></i>
+                        <h4 style="font-size: 22px; margin-bottom: 10px;">Certbot & DuckDNS</h4>
+                        <p style="font-size: 16px;">Dominio DDNS y cifrado HTTPS automatizado y gratuito.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-indicator">04 / 08</div>
         </div>
 
         <div class="slide">
@@ -252,7 +298,7 @@
                     <p>Uso de <strong>IP Elástica</strong> en AWS para garantizar la persistencia del enrutamiento DNS ante reinicios de hardware.</p>
                 </div>
             </div>
-            <div class="slide-indicator">03 / 06</div>
+            <div class="slide-indicator">05 / 08</div>
         </div>
 
         <div class="slide">
@@ -292,7 +338,7 @@
                     </div>
                 </div>
             </div>
-            <div class="slide-indicator">04 / 06</div>
+            <div class="slide-indicator">06 / 08</div>
         </div>
 
         <div class="slide">
@@ -300,7 +346,7 @@
                 <h2 class="title">Optimización de Recursos (Sostenibilidad)</h2>
                 <div class="layout-2col">
                     <div>
-                        <h3><i class="fa-solid fa-server"></i> Restricciones de Hardware</h3>
+                        <h3 style="color: #0ea5e9; margin-bottom: 15px;"><i class="fa-solid fa-server"></i> Restricciones de Hardware</h3>
                         <p>La instancia <code>t3.micro</code> del <em>Free Tier</em> de AWS cuenta con CPU limitada y <strong>solo 3.9 GB de almacenamiento libre</strong> real.</p>
                         <p style="margin-top: 15px;"><strong>Decisión Técnica:</strong> Desplegar un demonio de copias masivas (Cron) era inviable por riesgo de colapso de disco. Se pivotó a un <strong>CRUD bajo demanda</strong> administrado por el usuario.</p>
                     </div>
@@ -309,33 +355,39 @@
                             <i class="fa-solid fa-database" style="color: #10b981; font-size: 28px;"></i>
                             <h4 style="font-size: 22px; color: #f8fafc; margin: 0;">Almacenamiento JSON Ligero</h4>
                         </div>
-                        <p style="font-size: 18px; margin-top: 15px;">Instalar el servicio MySQL habría consumido gran parte de la memoria RAM. Para gestionar usuarios se implementó un archivo <strong>JSON</strong>.</p>
-                        <div class="code-block" style="margin-top: 10px; padding: 15px;">
+                        <p style="font-size: 18px; margin-top: 15px;">Instalar MySQL habría consumido la memoria RAM restante. Para gestionar usuarios de forma ligera se implementó un archivo <strong>JSON</strong>.</p>
+                        <div class="code-block" style="margin-top: 15px; padding: 15px;">
                             <span style="color: #64748b;">// Protección criptográfica BCRYPT</span><br>
                             $hash = <span style="color: #38bdf8;">password_hash</span>($pass, PASSWORD_BCRYPT);
                         </div>
-                        <p style="font-size: 16px; color: #94a3b8; margin: 0;">Seguridad algorítmica sin el sobrecoste relacional.</p>
+                        <p style="font-size: 16px; color: #94a3b8; margin-top: 15px; margin-bottom: 0;">Seguridad algorítmica sin el sobrecoste relacional.</p>
                     </div>
                 </div>
             </div>
-            <div class="slide-indicator">05 / 06</div>
+            <div class="slide-indicator">07 / 08</div>
         </div>
 
         <div class="slide layout-center">
             <div class="slide-content layout-center">
-                <i class="fa-solid fa-terminal" style="font-size: 60px; color: #334155; margin-bottom: 20px;"></i>
-                <h2 style="font-size: 42px; max-width: 1050px; text-align: center; line-height: 1.4;">
-                    "La competencia real de un Administrador de Sistemas no es la memorización técnica, sino el <span style="color: #0ea5e9;">criterio para auditar, buscar herramientas e implementar soluciones eficientes</span>."
+                <i class="fa-solid fa-quote-left" style="font-size: 60px; color: #334155; margin-bottom: 20px;"></i>
+                
+                <h2 style="font-size: 38px; max-width: 1050px; text-align: center; line-height: 1.4; font-style: italic;">
+                    "El único sistema verdaderamente seguro es aquel que está apagado, desconectado, enterrado en un bloque de hormigón y sellado en una habitación de plomo con guardias armados... <span style="color: #0ea5e9;">y aún así, tengo mis dudas</span>."
                 </h2>
-                <p style="font-size: 22px; color: #94a3b8; margin-top: 40px; max-width: 800px; text-align: center;">
-                    El despliegue de esta arquitectura me ha preparado para enfrentarme a servidores reales, gestionar recursos limitados y priorizar la seguridad por diseño.
+                
+                <p style="font-size: 22px; color: #10b981; margin-top: 30px; font-weight: 600;">
+                    — Eugene Spafford (Experto en Ciberseguridad)
                 </p>
                 
-                <div style="margin-top: 60px; border-top: 1px solid #334155; padding-top: 30px; width: 400px;">
+                <p style="font-size: 20px; color: #94a3b8; margin-top: 20px; max-width: 800px; text-align: center;">
+                    La seguridad absoluta no existe, pero la aplicación estricta de la <strong>Defensa en Profundidad</strong> minimiza los riesgos críticos garantizando la resiliencia de la empresa.
+                </p>
+                
+                <div style="margin-top: 50px; border-top: 1px solid #334155; padding-top: 25px; width: 400px;">
                     <h3 style="color: #f8fafc; font-size: 24px; margin: 0;">Gracias por su atención.</h3>
                 </div>
             </div>
-            <div class="slide-indicator">06 / 06</div>
+            <div class="slide-indicator">08 / 08</div>
         </div>
 
         <div class="controls">
@@ -351,13 +403,8 @@
         const slides = document.querySelectorAll('.slide');
 
         function showSlide(index) {
-            // Ocultar la actual
             slides[currentSlide].classList.remove('active');
-            
-            // Lógica circular (si se pasa de la última, vuelve a la primera)
             currentSlide = (index + slides.length) % slides.length;
-            
-            // Mostrar la nueva
             slides[currentSlide].classList.add('active');
         }
 
