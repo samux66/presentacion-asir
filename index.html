@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Proyecto ASIR - No Me Olvides</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- ESTILOS BASE --- */
+        * { box-sizing: border-box; }
+        body {
+            background-color: #0b1120;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Evita el scroll para una experiencia de app/presentación */
+        }
+
+        /* --- CONTENEDOR PRINCIPAL (Slider) --- */
+        #slider-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #0f172a;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+
+        /* Fondo tecnológico */
+        #slider-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- DIAPOSITIVAS Y TRANSICIONES --- */
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+            color: #cbd5e1;
+            /* Estado oculto inicial */
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.95);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        /* Estado activo */
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        .slide-content { position: relative; z-index: 1; flex-grow: 1; display: flex; flex-direction: column; }
+
+        /* --- TIPOGRAFÍA --- */
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; margin: 0; color: #f8fafc; }
+        h1 { font-size: 70px; font-weight: 800; line-height: 1.1; text-align: center; }
+        h1 span { color: #0ea5e9; }
+        h2.title { font-size: 44px; font-weight: 700; border-left: 8px solid #10b981; padding-left: 24px; margin-bottom: 40px; }
+        h3 { font-size: 26px; color: #0ea5e9; margin-bottom: 12px; }
+        p, li { font-size: 20px; line-height: 1.6; }
+        .highlight { color: #10b981; font-weight: 600; } 
+        .code-box { font-family: 'Fira Code', monospace; background: #1e293b; padding: 4px 10px; border-radius: 6px; color: #f472b6; font-size: 18px; border: 1px solid #334155;}
+        .code-block { font-family: 'Fira Code', monospace; background: #020617; padding: 20px; border-radius: 12px; color: #a7f3d0; font-size: 16px; border: 1px solid #1e293b; text-align: left; }
+
+        /* --- LAYOUTS --- */
+        .layout-center { justify-content: center; align-items: center; text-align: center; }
+        .layout-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; flex-grow: 1; align-items: center; }
+        
+        /* Enlaces de la Portada */
+        .contact-links { display: flex; gap: 25px; justify-content: center; margin-top: 20px; }
+        .contact-links a { color: #94a3b8; text-decoration: none; font-size: 18px; display: flex; align-items: center; gap: 8px; transition: color 0.3s; }
+        .contact-links a:hover { color: #38bdf8; }
+
+        /* Imagen Portada Myosotis (Enlace altamente fiable de Wikimedia) */
+        .cover-image { 
+            width: 180px; 
+            height: 180px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 4px solid #10b981; 
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); 
+            margin-bottom: 25px; 
+            background: #fff;
+        }
+
+        /* Diagrama de Arquitectura */
+        .arch-diagram { display: flex; justify-content: space-between; align-items: center; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 16px; border: 1px solid #334155; margin-top: 20px;}
+        .arch-node { display: flex; flex-direction: column; align-items: center; text-align: center; width: 160px; }
+        .arch-icon { font-size: 50px; color: #f8fafc; background: #0ea5e9; width: 100px; height: 100px; border-radius: 20px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); }
+        .arch-icon.green { background: #10b981; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); }
+        .arch-icon.purple { background: #8b5cf6; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
+        .arch-icon.dark { background: #334155; }
+        .arch-arrow { font-size: 30px; color: #64748b; }
+
+        /* Seguridad por Capas */
+        .layers-container { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        .layer { display: flex; align-items: center; gap: 20px; padding: 20px 30px; border-radius: 12px; border-left: 8px solid; background: #1e293b; }
+        .layer-1 { border-color: #ef4444; } 
+        .layer-2 { border-color: #f59e0b; margin-left: 40px; } 
+        .layer-3 { border-color: #10b981; margin-left: 80px; } 
+        .layer-icon { font-size: 34px; width: 40px; text-align: center; color: #f8fafc; }
+
+        /* Controles de Navegación */
+        .controls {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+        .controls button {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #334155;
+            color: #cbd5e1;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .controls button:hover {
+            background: #0ea5e9;
+            color: white;
+            border-color: #0ea5e9;
+        }
+
+        .slide-indicator { position: absolute; bottom: 40px; left: 40px; font-size: 16px; color: #64748b; font-family: 'Poppins', sans-serif; font-weight: 600;}
+
+        /* Ajustes Pantalla Completa (Tecla F) */
+        :fullscreen #slider-container {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="slider-container">
+        
+        <div class="slide active">
+            <div class="slide-content layout-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Myosotis_sylvatica_-_Val_Veny.jpg" alt="Flor No Me Olvides" class="cover-image">
+                
+                <h1>Proyecto ASIR:<br><span>No Me Olvides</span></h1>
+                <p style="font-size: 26px; margin-top: 10px; color: #94a3b8;">Arquitectura Cloud, Securización y Resiliencia de Datos</p>
+                
+                <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid #334155; width: 850px;">
+                    <p style="font-size: 24px; font-weight: 600; color: #f8fafc; margin-bottom: 5px;">Samuel Pérez Tavío</p>
+                    <p style="font-size: 18px; color: #10b981; font-weight: 600;">Never Forget SL</p>
+                    
+                    <div class="contact-links">
+                        <a href="mailto:samuelpt7@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i> samuelpt7@gmail.com</a>
+                        <a href="https://www.linkedin.com/in/samuel-p%C3%A9rez-tav%C3%ADo-632a50238" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+                        <a href="https://github.com/samux66" target="_blank"><i class="fa-brands fa-github"></i> github.com/samux66</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-indicator">01 / 06</div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2 class="title">El Problema: Fragilidad y Exposición</h2>
+                <div class="layout-2col">
+                    <div>
+                        <h3 style="color: #ef4444;"><i class="fa-solid fa-bug"></i> Escenario Actual (Pymes)</h3>
+                        <p>Las infraestructuras locales (On-Premise) de las pequeñas empresas presentan vulnerabilidades críticas:</p>
+                        <ul style="margin-top: 20px; gap: 10px; display: flex; flex-direction: column;">
+                            <li><strong>SPOF (Single Point of Failure):</strong> Un fallo de disco destruye años de operativa.</li>
+                            <li><strong>Ransomware:</strong> Aumento del 26% de secuestro de datos por exposición de redes locales.</li>
+                            <li><strong>Shadow IT:</strong> Los usuarios usan USBs inseguros ante la falta de herramientas corporativas.</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(16, 185, 129, 0.05); padding: 40px; border-radius: 16px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                        <h3 style="color: #10b981;"><i class="fa-solid fa-shield-halved"></i> La Solución Arquitectónica</h3>
+                        <p>Despliegue de un entorno <strong>Cloud externalizado</strong> centrado en tres pilares:</p>
+                        <ul style="margin-top: 20px;">
+                            <li><strong>Alta Disponibilidad:</strong> Infraestructura AWS EC2.</li>
+                            <li><strong>Confidencialidad:</strong> Tráfico cifrado (SSL) y credenciales hasheadas (Bcrypt).</li>
+                            <li><strong>Integridad:</strong> Panel CRUD web aislado por sesiones lógicas de PHP.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-indicator">02 / 06</div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2 class="title">Topología de la Arquitectura</h2>
+                <p>Flujo de la información desde el cliente hasta el almacenamiento seguro en la instancia EC2.</p>
+                
+                <div class="arch-diagram">
+                    <div class="arch-node">
+                        <div class="arch-icon dark"><i class="fa-solid fa-user"></i></div>
+                        <h4 style="font-size: 18px;">Cliente</h4>
+                        <p style="font-size: 14px;">Navegador Web</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-right arch-arrow"></i>
+                    <div class="arch-node">
+                        <div class="arch-icon green"><i class="fa-solid fa-lock"></i></div>
+                        <h4 style="font-size: 18px;">DuckDNS + SSL</h4>
+                        <p style="font-size: 14px;">Redirección HTTPS</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-right arch-arrow"></i>
+                    <div class="arch-node">
+                        <div class="arch-icon"><i class="fa-solid fa-fire-burner"></i></div>
+                        <h4 style="font-size: 18px;">UFW Firewall</h4>
+                        <p style="font-size: 14px;">Filtro (Deny-All)</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-right arch-arrow"></i>
+                    <div class="arch-node">
+                        <div class="arch-icon purple"><i class="fa-brands fa-php"></i></div>
+                        <h4 style="font-size: 18px;">Apache2 + PHP</h4>
+                        <p style="font-size: 14px;">Lógica CRUD & JSON</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-right arch-arrow"></i>
+                    <div class="arch-node">
+                        <div class="arch-icon dark"><i class="fa-solid fa-hard-drive"></i></div>
+                        <h4 style="font-size: 18px;">Storage (AWS)</h4>
+                        <p style="font-size: 14px;">Directorios Aislados</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; text-align: center;">
+                    <p>Uso de <strong>IP Elástica</strong> en AWS para garantizar la persistencia del enrutamiento DNS ante reinicios de hardware.</p>
+                </div>
+            </div>
+            <div class="slide-indicator">03 / 06</div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2 class="title">Ciberseguridad: Defensa en Profundidad</h2>
+                <div class="layout-2col" style="align-items: flex-start;">
+                    <div>
+                        <p>La seguridad del servidor no depende de una única barrera, sino de <strong>múltiples capas concéntricas</strong>. Si una falla, la siguiente mitiga el impacto.</p>
+                        <div class="code-block" style="margin-top: 30px;">
+                            <span style="color: #64748b;">// Mitigación de Directory Traversal en PHP</span><br>
+                            $archivo_limpio = <span style="color: #38bdf8;">basename</span>($_GET['file']);<br>
+                            <span style="color: #64748b;">// Bloquea inyecciones tipo "../../etc/passwd"</span>
+                        </div>
+                    </div>
+                    <div class="layers-container">
+                        <div class="layer layer-1">
+                            <i class="fa-solid fa-network-wired layer-icon"></i>
+                            <div>
+                                <h4 style="font-size: 20px; color: #ef4444;">1. Seguridad Perimetral</h4>
+                                <p style="font-size: 16px; margin: 0;"><strong>UFW:</strong> Regla estricta <em>Deny-All</em> entrante. Solo apertura de puertos críticos TCP: 22 (SSH), 80 y 443 (Web).</p>
+                            </div>
+                        </div>
+                        <div class="layer layer-2">
+                            <i class="fa-solid fa-shield-halved layer-icon"></i>
+                            <div>
+                                <h4 style="font-size: 20px; color: #f59e0b;">2. Seguridad de Transporte</h4>
+                                <p style="font-size: 16px; margin: 0;"><strong>Certbot / Let's Encrypt:</strong> Cifrado SSL y redirección forzada. Protege las credenciales de ataques <em>Man-in-the-Middle</em>.</p>
+                            </div>
+                        </div>
+                        <div class="layer layer-3">
+                            <i class="fa-solid fa-code layer-icon"></i>
+                            <div>
+                                <h4 style="font-size: 20px; color: #10b981;">3. Seguridad de Aplicación (Blocklist)</h4>
+                                <p style="font-size: 16px; margin: 0;">Rechazo a nivel de código de ficheros <span class="code-box">.php</span> o <span class="code-box">.sh</span> para prevenir vulnerabilidades de <strong>Ejecución Remota (RCE)</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-indicator">04 / 06</div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2 class="title">Optimización de Recursos (Sostenibilidad)</h2>
+                <div class="layout-2col">
+                    <div>
+                        <h3><i class="fa-solid fa-server"></i> Restricciones de Hardware</h3>
+                        <p>La instancia <code>t3.micro</code> del <em>Free Tier</em> de AWS cuenta con CPU limitada y <strong>solo 3.9 GB de almacenamiento libre</strong> real.</p>
+                        <p style="margin-top: 15px;"><strong>Decisión Técnica:</strong> Desplegar un demonio de copias masivas (Cron) era inviable por riesgo de colapso de disco. Se pivotó a un <strong>CRUD bajo demanda</strong> administrado por el usuario.</p>
+                    </div>
+                    <div style="background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 30px;">
+                        <div style="display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #334155; padding-bottom: 15px;">
+                            <i class="fa-solid fa-database" style="color: #10b981; font-size: 28px;"></i>
+                            <h4 style="font-size: 22px; color: #f8fafc; margin: 0;">Almacenamiento JSON Ligero</h4>
+                        </div>
+                        <p style="font-size: 18px; margin-top: 15px;">Instalar el servicio MySQL habría consumido gran parte de la memoria RAM. Para gestionar usuarios se implementó un archivo <strong>JSON</strong>.</p>
+                        <div class="code-block" style="margin-top: 10px; padding: 15px;">
+                            <span style="color: #64748b;">// Protección criptográfica BCRYPT</span><br>
+                            $hash = <span style="color: #38bdf8;">password_hash</span>($pass, PASSWORD_BCRYPT);
+                        </div>
+                        <p style="font-size: 16px; color: #94a3b8; margin: 0;">Seguridad algorítmica sin el sobrecoste relacional.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-indicator">05 / 06</div>
+        </div>
+
+        <div class="slide layout-center">
+            <div class="slide-content layout-center">
+                <i class="fa-solid fa-terminal" style="font-size: 60px; color: #334155; margin-bottom: 20px;"></i>
+                <h2 style="font-size: 42px; max-width: 1050px; text-align: center; line-height: 1.4;">
+                    "La competencia real de un Administrador de Sistemas no es la memorización técnica, sino el <span style="color: #0ea5e9;">criterio para auditar, buscar herramientas e implementar soluciones eficientes</span>."
+                </h2>
+                <p style="font-size: 22px; color: #94a3b8; margin-top: 40px; max-width: 800px; text-align: center;">
+                    El despliegue de esta arquitectura me ha preparado para enfrentarme a servidores reales, gestionar recursos limitados y priorizar la seguridad por diseño.
+                </p>
+                
+                <div style="margin-top: 60px; border-top: 1px solid #334155; padding-top: 30px; width: 400px;">
+                    <h3 style="color: #f8fafc; font-size: 24px; margin: 0;">Gracias por su atención.</h3>
+                </div>
+            </div>
+            <div class="slide-indicator">06 / 06</div>
+        </div>
+
+        <div class="controls">
+            <button onclick="prevSlide()" title="Anterior (Flecha Izquierda)"><i class="fa-solid fa-chevron-left"></i></button>
+            <button onclick="nextSlide()" title="Siguiente (Flecha Derecha)"><i class="fa-solid fa-chevron-right"></i></button>
+            <button onclick="toggleFullScreen()" title="Pantalla Completa (Tecla F)"><i class="fa-solid fa-expand"></i></button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            // Ocultar la actual
+            slides[currentSlide].classList.remove('active');
+            
+            // Lógica circular (si se pasa de la última, vuelve a la primera)
+            currentSlide = (index + slides.length) % slides.length;
+            
+            // Mostrar la nueva
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function toggleFullScreen() {
+            const container = document.getElementById('slider-container');
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(err => {
+                    alert(`Error intentando entrar en pantalla completa: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Navegación por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullScreen();
+            }
+        });
+    </script>
+</body>
+</html>
